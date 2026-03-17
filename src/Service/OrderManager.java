@@ -15,7 +15,7 @@ public class OrderManager {
             completedOrders = new ArrayList<>(); // Opretter tom liste til arkiv
         }
 
-        // 🔹 Tilføj en ny ordre
+        //  Tilføj en ny ordre
         public void addOrder(Order order) { // Metode der modtager en ordre
             if (order == null) { // Tjekker om ordren ikke findes
                 System.out.println("Ordre er null!"); // Fejlbesked
@@ -25,7 +25,7 @@ public class OrderManager {
             activeOrders.add(order); // Tilføjer ordren til listen over aktive ordrer
         }
 
-        // 🔹 Vis aktive ordrer sorteret efter afhentningstid
+        // Vis aktive ordrer sorteret efter afhentningstid
         public void showActiveOrders() { // Metode til at vise ordrer
             activeOrders.stream() // Laver listen om til en stream (så vi kan arbejde med den)
                     .sorted(Comparator.comparing(Order::getPickupTime))
@@ -55,7 +55,7 @@ public class OrderManager {
             }
         }
 
-        // 🔹 Vis alle færdige ordrer
+        //  Vis alle færdige ordrer
         public void showCompletedOrders() { // Metode til at vise arkiv
             for (Order o : completedOrders) { // Gennemgår alle færdige ordrer
                 System.out.println(o); // Printer hver ordre
