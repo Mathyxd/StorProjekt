@@ -4,11 +4,8 @@ import main.*;
 import Model.*;
 import util.*;
 import File.*;
-import Model.Menu.*;
-import Model.Pizza.*;
-
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class PizzaUi {
 
@@ -82,19 +79,49 @@ public class PizzaUi {
         int pizzaNumber = readInt("Pizzanummer: ");
         int quantity = readInt("Antal: ");
 
-        System.out.println("Opret ordre her for " + customerName + ".");
-        System.out.println("Valgt pizza: " + pizzaNumber + ", antal: " + quantity);
-        System.out.println("OrderManager skal senere bruges til at gemme ordren.");
+        Pizza pizza = menu.findPizzaByNumber(pizzaNumber);
+
+        if (pizza == null) {
+            System.out.println("Pizza findes ikke.");
+            return;
+        }
+
+        Customer customer = new NormalCustomer(customerName);
+        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
+
+        Order order = orderManager.createOrder(customer, pizza, quantity, pickupTime);
+
+        System.out.println("Ordre oprettet: #" + order.getOrderNumber());
     }
 
     private void showActiveOrders() {
-        System.out.println("Vis aktive ordrer her.");
-        System.out.println("OrderManager skal senere levere listen.");
+        var orders = orderManager.getActiveOrdersSorted();
+
+        if (orders.isEmpty()) {
+            System.out.println("Ingen aktive ordrer.");
+            return;
+        }
+
+        for (Order order : orders) {
+            System.out.println(
+                    "Ordre #" + order.getOrderNumber() +
+                            " | Pizza: " + order.getPizza().getName() +
+                            " | Antal: " + order.getQuantity() +
+                            " | Status: " + order.getStatus() +
+                            " | Klar: " + order.getPickupTime()
+            );
+        }
     }
 
     private void markOrderReady() {
         int orderNumber = readInt("Ordrenummer: ");
-        System.out.println("Marker ordre " + orderNumber + " som klar her.");
+        boolean success = orderManager.markOrderAsReady(orderNumber);
+
+        if (success) {
+            System.out.println("Ordren er markeret som klar.");
+        } else {
+            System.out.println("Ordren blev ikke fundet.");
+        }
     }
 
     private void exitProgram() {
