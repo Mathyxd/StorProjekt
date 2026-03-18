@@ -4,6 +4,8 @@ import main.*;
 import Model.*;
 import util.*;
 import File.*;
+import Model.Menu.*;
+import Model.Pizza.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,12 +14,15 @@ public class PizzaUi {
 
     private final Scanner scanner;
     private final OrderManager orderManager;
+    private final Menu menu;
     private boolean running;
+
 
     public PizzaUi() {
         scanner = new Scanner(System.in);
         orderManager = new OrderManager();
         running = true;
+        menu = new Menu();
     }
 
     public void start() {
@@ -61,8 +66,15 @@ public class PizzaUi {
     }
 
     private void showMenuCard() {
-        System.out.println("Vis menukort her.");
-        System.out.println("Denne metode skal senere hente pizzaer fra model/service.");
+        System.out.println("=== Menukort ===");
+        for (Pizza pizza : menu.getPizzas()) {
+            System.out.println(
+                    pizza.getNumber() + ". " +
+                            pizza.getName() + " - " +
+                            pizza.getIngredients() + " - " +
+                            pizza.getPrice() + " kr"
+            );
+        }
     }
 
     private void createOrder() {
