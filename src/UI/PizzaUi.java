@@ -1,5 +1,6 @@
 package UI;
 import Service.OrderManager;
+import Service.PaymentService;
 import main.*;
 import Model.*;
 import util.*;
@@ -13,6 +14,7 @@ public class PizzaUi {
 
     private final Scanner scanner;
     private final OrderManager orderManager;
+    private final PaymentService paymentService;
     private final Menu menu;
     private boolean running;
 
@@ -20,6 +22,7 @@ public class PizzaUi {
     public PizzaUi() {
         scanner = new Scanner(System.in);
         orderManager = new OrderManager();
+        paymentService = new PaymentService();
         running = true;
         menu = new Menu();
     }
@@ -76,6 +79,7 @@ public class PizzaUi {
                             pizza.getName() + " - " +
                             pizza.getIngredients() + " - " +
                             pizza.getPrice() + " kr"
+
             );
         }
         pressEnterToContinue();
@@ -98,11 +102,38 @@ public class PizzaUi {
         Size size = readSize();
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
-
+        double total = paymentService.calculateTotal(order);
         System.out.println("Ordre oprettet: #" + order.getOrderNumber());
-        System.out.println("Ordren er færdig kl. " + order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
+        System.out.println("Samlet pris: " + total + " kr");
+
+        double amountPaid = readDouble("Betalt beløb: ");
+
+        if (paymentService.processPayment(order, amountPaid)) {
+            double change = paymentService.calculateChange(order, amountPaid);
+            System.out.println("Betaling godkendt.");
+            System.out.println("Byttepenge: " + change + " kr");
+        } else {
+            System.out.println("Betaling afvist. Kunden har ikke betalt nok.");
+        }
+
+        System.out.println("Ordren er færdig kl. " +
+                order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
         pressEnterToContinue();
     }
+    private double readDouble(String message) {
+        while (true) {
+            System.out.print(message);
+            if (scanner.hasNextDouble()) {
+                double value = scanner.nextDouble();
+                scanner.nextLine();
+                return value;
+            }
+
+            System.out.println("Skriv et gyldigt beløb.");
+            scanner.nextLine();
+        }
+    }
+
     private Size readSize() {
         System.out.println("Vælg størrelse:");
         System.out.println("1. Small");
