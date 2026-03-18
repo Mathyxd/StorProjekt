@@ -15,22 +15,18 @@ public class FileHandler {
     private static final String MENU_FILE = "menu.csv";
 
     public static void saveOrder(Order order) {
-        try (PrintWriter writer = new PrintWriter (new FileWriter(FileHandler.ORDERS_FILE, true));
+        try (PrintWriter writer = new PrintWriter (new FileWriter(FileHandler.ORDERS_FILE, true)) {
              writer.println(
                      order.getCustomer().getName() + "," +
                              order.getCustomer().getCustomerType() + "," +
                              order.getPizza().getName() + "," +
                              order.getPickupTime() + "," +
                              order.getTotalPrice()
-             );
-
-    }
-
+                    );
         } catch (IOException e) {
-        ExceptionHandler.handle(e);
+            ExceptionHandler.handle(e);
+        }
     }
-
-}
 public static List<Pizza> loadMenu() {
     List<Pizza> pizzas = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(FileHandler.MENU_FILE))) {
