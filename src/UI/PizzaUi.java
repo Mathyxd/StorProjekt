@@ -72,6 +72,7 @@ public class PizzaUi {
                             pizza.getPrice() + " kr"
             );
         }
+        pressEnterToContinue();
     }
 
     private void createOrder() {
@@ -92,6 +93,7 @@ public class PizzaUi {
         Order order = orderManager.createOrder(customer, pizza, quantity, pickupTime);
 
         System.out.println("Ordre oprettet: #" + order.getOrderNumber());
+        pressEnterToContinue();
     }
 
     private void showActiveOrders() {
@@ -111,6 +113,7 @@ public class PizzaUi {
                             " | Klar: " + order.getPickupTime()
             );
         }
+        pressEnterToContinue();
     }
 
     private void markOrderReady() {
@@ -122,6 +125,7 @@ public class PizzaUi {
         } else {
             System.out.println("Ordren blev ikke fundet.");
         }
+        pressEnterToContinue();
     }
 
     private void exitProgram() {
@@ -146,5 +150,10 @@ public class PizzaUi {
     private String readText(String message) {
         System.out.print(message);
         return scanner.nextLine().trim();
+    }
+
+    private void pressEnterToContinue() {
+        System.out.println("\nTryk Enter for at fortsætte...");
+        scanner.nextLine();
     }
 }
