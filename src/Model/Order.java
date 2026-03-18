@@ -8,9 +8,10 @@ public class Order {
     private final Pizza pizza;
     private final int quantity;
     private final LocalDateTime pickupTime;
+    private final Size size;
     private OrderStatus status;
 
-    public Order(int orderNumber, Customer customer, Pizza pizza, int quantity, LocalDateTime pickupTime) {
+    public Order(int orderNumber, Customer customer, Pizza pizza, Size size, int quantity, LocalDateTime pickupTime) {
         if (customer == null) {
             throw new IllegalArgumentException("Customer må ikke være null");
         }
@@ -27,6 +28,7 @@ public class Order {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.pizza = pizza;
+        this.size = size;
         this.quantity = quantity;
         this.pickupTime = pickupTime;
         this.status = OrderStatus.RECEIVED;
@@ -64,7 +66,7 @@ public class Order {
     }
 
     public double getTotalPrice() {
-        return customer.calculatePrice(pizza.getPrice()) * quantity;
+        return customer.calculatePrice(pizza.getPrice() * size.getPriceMultiplier()) * quantity;
     }
 
     @Override

@@ -5,10 +5,8 @@ import java.util.Comparator; // Bruges til at sortere ordrer
 import java.util.List;// Interface for lister
 import java.time.LocalDateTime;
 
-import Model.Customer;
-import Model.Order;
-import Model.OrderStatus;
-import Model.Pizza;
+import Model.*;
+
 public class OrderManager { // Klasse der styrer alle ordrer
 
 
@@ -17,8 +15,8 @@ public class OrderManager { // Klasse der styrer alle ordrer
     private int nextOrderNumber = 1;
 
     // Opret ny ordre
-    public Order createOrder(Customer customer, Pizza pizza, int quantity, LocalDateTime pickupTime) {
-        Order order = new Order(nextOrderNumber++, customer, pizza, quantity, pickupTime);
+    public Order createOrder(Customer customer, Pizza pizza, Size size, int quantity, LocalDateTime pickupTime) {
+        Order order = new Order(nextOrderNumber++, customer, pizza, size, quantity, pickupTime);
         activeOrders.add(order);
         return order;
     }

@@ -89,8 +89,9 @@ public class PizzaUi {
 
         Customer customer = new NormalCustomer(customerName);
         LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
+        Size size = Size.MEDIUM;
 
-        Order order = orderManager.createOrder(customer, pizza, quantity, pickupTime);
+        Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
 
         System.out.println("Ordre oprettet: #" + order.getOrderNumber());
         pressEnterToContinue();
