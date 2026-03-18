@@ -76,5 +76,8 @@ public class OrderManager { // Klasse der styrer alle ordrer
         }
         return null;
     }
+    public Order findOrder(int orderNumber) {
+        return findActiveOrder(orderNumber);
+    }
 
 }
