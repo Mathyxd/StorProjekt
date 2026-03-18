@@ -27,6 +27,18 @@ public class FileHandler {
             ExceptionHandler.handle(e);
         }
     }
+    public static List<String> loadOrders() {
+        List<String> orders = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FileHandler.ORDERS_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                orders.add(line);
+            }
+        }catch (IOException e) {
+            ExceptionHandler.handle(e);
+        }
+        return orders;
+    }
 
     public static List<Pizza> loadMenu() {
         List<Pizza> pizzas = new ArrayList<>();
