@@ -4,6 +4,8 @@ import main.*;
 import Model.*;
 import util.*;
 import File.*;
+
+import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 
@@ -37,7 +39,8 @@ public class PizzaUi {
         System.out.println("2. Opret ordre");
         System.out.println("3. Vis aktive ordrer");
         System.out.println("4. Marker ordre som klar");
-        System.out.println("5. Afslut");
+        System.out.println("5. Vis ordre Historik");
+        System.out.println("6. Afslut");
     }
 
     private void handleChoice(int choice) {
@@ -55,6 +58,9 @@ public class PizzaUi {
                 markOrderReady();
                 break;
             case 5:
+                showOrderHistory();
+                break;
+            case 6:
                 exitProgram();
                 break;
             default:
@@ -146,6 +152,32 @@ public class PizzaUi {
         } else {
             System.out.println("Ordren blev ikke fundet.");
         }
+        pressEnterToContinue();
+    }
+    public void showOrderHistory() {
+        List<String> orders = FileHandler.loadOrders();
+
+        if (orders.isEmpty()) {
+            System.out.println("Ingen ordrer i historikken endnu.");
+            pressEnterToContinue();
+            return;
+        }
+        System.out.println("\n===OrdreHisotirk===");
+        double totalRevenue = 0;
+        for (String order : orders) {
+            String[] parts = order.split(",");
+            double price = Double.parseDouble(parts[4]);
+            totalRevenue += price;
+            System.out.println(
+                    "Kunde: " + parts[0] +
+                            " | Type: " + parts[1] +
+                            " | Pizza: " + parts[2] +
+                            " | Tidspunkt: " + parts[3] +
+                            " | Pris: " + parts[4] + " kr"
+            );
+        }
+        System.out.println("---------");
+        System.out.println("Samlet omsætning: " + String.format("%.2f", totalRevenue) + "kr");
         pressEnterToContinue();
     }
 
