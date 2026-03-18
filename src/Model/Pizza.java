@@ -2,11 +2,12 @@ package Model;
 
 public class Pizza {
     private final int number;
+    private final int prepTimeMinutes;
     private final String name;
     private final String ingredients;
     private final double price;
 
-    public Pizza(int number, String name, String ingredients, double price) {
+    public Pizza(int number,int prepTimeMinutes, String name, String ingredients, double price) {
         if (number <= 0) {
             throw new IllegalArgumentException("Pizzanummer skal være større end 0");
         }
@@ -21,6 +22,7 @@ public class Pizza {
         }
 
         this.number = number;
+        this.prepTimeMinutes = prepTimeMinutes;
         this.name = name.trim();
         this.ingredients = ingredients.trim();
         this.price = price;
@@ -28,6 +30,9 @@ public class Pizza {
 
     public int getNumber() {
         return number;
+    }
+    public int getPrepTimeMinutes() {
+        return prepTimeMinutes;
     }
 
     public String getName() {

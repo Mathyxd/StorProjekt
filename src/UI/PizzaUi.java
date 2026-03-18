@@ -94,6 +94,7 @@ public class PizzaUi {
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
 
         System.out.println("Ordre oprettet: #" + order.getOrderNumber());
+        System.out.println("Ordren er færdig kl. " + order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
         pressEnterToContinue();
     }
     private Size readSize() {

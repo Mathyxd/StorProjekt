@@ -26,12 +26,12 @@ public class Menu {
 
     private List<Pizza> createDefaultMenu() {
         List<Pizza> defaultMenu = new ArrayList<>();
-        defaultMenu.add(new Pizza(1, "Margherita", "Tomat, ost, oregano", 65));
-        defaultMenu.add(new Pizza(2, "Vesuvio", "Tomat, ost, skinke", 72));
-        defaultMenu.add(new Pizza(3, "Capricciosa", "Tomat, ost, skinke, champignon", 78));
-        defaultMenu.add(new Pizza(4, "Pepperoni", "Tomat, ost, pepperoni", 80));
-        defaultMenu.add(new Pizza(5, "Hawaii", "Tomat, ost, skinke, ananas", 79));
-        defaultMenu.add(new Pizza(6, "Napoli", "Tomat, ost, ansjoser, oliven", 81));
+        defaultMenu.add(new Pizza(1,11, "Margherita", "Tomat, ost, oregano", 65));
+        defaultMenu.add(new Pizza(2,12, "Vesuvio", "Tomat, ost, skinke", 72));
+        defaultMenu.add(new Pizza(3,14, "Capricciosa", "Tomat, ost, skinke, champignon", 78));
+        defaultMenu.add(new Pizza(4,13, "Pepperoni", "Tomat, ost, pepperoni", 80));
+        defaultMenu.add(new Pizza(5,13, "Hawaii", "Tomat, ost, skinke, ananas", 79));
+        defaultMenu.add(new Pizza(6,15, "Napoli", "Tomat, ost, ansjoser, oliven", 81));
         return defaultMenu;
     }
 }
