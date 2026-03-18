@@ -89,12 +89,32 @@ public class PizzaUi {
 
         Customer customer = new NormalCustomer(customerName);
         LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
-        Size size = Size.MEDIUM;
+        Size size = readSize();
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
 
         System.out.println("Ordre oprettet: #" + order.getOrderNumber());
         pressEnterToContinue();
+    }
+    private Size readSize() {
+        System.out.println("Vælg størrelse:");
+        System.out.println("1. Small");
+        System.out.println("2. Medium");
+        System.out.println("3. Large");
+
+        int choice = readInt("Vælg størrelse: ");
+
+        switch (choice) {
+            case 1:
+                return Size.SMALL;
+            case 2:
+                return Size.MEDIUM;
+            case 3:
+                return Size.LARGE;
+            default:
+                System.out.println("Ugyldigt valg. Medium vælges automatisk.");
+                return Size.MEDIUM;
+        }
     }
 
     private void showActiveOrders() {
@@ -157,4 +177,5 @@ public class PizzaUi {
         System.out.println("\nTryk Enter for at fortsætte...");
         scanner.nextLine();
     }
+
 }
