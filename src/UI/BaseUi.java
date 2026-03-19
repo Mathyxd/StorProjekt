@@ -1,4 +1,6 @@
 package UI;
+import java.util.Scanner;
+
 public abstract class BaseUi {
     protected final Scanner scanner;
 

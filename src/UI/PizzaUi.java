@@ -8,8 +8,9 @@ import File.*;
 
 import java.util.Scanner;
 
-public class PizzaUi {
-    private final Scanner scanner;
+
+public class PizzaUi extends BaseUi {
+
     private final OrderUi orderUi;
     private final CustomerUi customerUi;
     private final MenuUi menuUi;
@@ -17,12 +18,12 @@ public class PizzaUi {
 
 
     public PizzaUi() {
-        scanner = new Scanner(System.in);
+        super(new Scanner(System.in));
         OrderManager orderManager = new OrderManager();
         PaymentService paymentService = new PaymentService();
         Menu menu = new Menu();
 
-        orderUi = new OrderUi(scanner, orderManager, paymentService, menu);
+
         customerUi = new CustomerUi(scanner);
         menuUi = new MenuUi(scanner, menu);
         orderUi = new OrderUi(scanner, orderManager, paymentService, menu, customerUi, menuUi);
@@ -53,25 +54,25 @@ public class PizzaUi {
     public void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                showMenuCard();
+                menuUi.showMenuCard();
                 break;
             case 2:
-                createOrder();
+                orderUi.createOrder();
                 break;
             case 3:
-                showActiveOrders();
+                orderUi.showActiveOrders();
                 break;
             case 4:
-                markOrderReady();
+                orderUi.markOrderReady();
                 break;
             case 5:
-                markOrderComplete();
+                orderUi.markOrderComplete();
                 break;
             case 6:
-                showOrderHistory();
+                orderUi.showOrderHistory();
                 break;
             case 7:
-                showCustomerOverview();
+                customerUi.showCustomerOverview();
                 break;
             case 8:
                 exitProgram();
@@ -85,33 +86,7 @@ public class PizzaUi {
         System.out.println("Programmet lukker.");
     }
 
-
-
-    public double readDouble(String message) {
-        while (true) {
-            System.out.print(message);
-            if (scanner.hasNextDouble()) {
-                double value = scanner.nextDouble();
-                scanner.nextLine();
-                return value;
-            }
-
-            System.out.println("Skriv et gyldigt beløb.");
-            scanner.nextLine();
-        }
-    }
-
-
-
-
-
-
-    public void pressEnterToContinue() {
-        System.out.println("\nTryk Enter for at fortsætte...");
-        scanner.nextLine();
-    }
-
-}
+ }
 
 
 
