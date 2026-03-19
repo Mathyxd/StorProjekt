@@ -97,7 +97,7 @@ public class PizzaUi {
             return;
         }
 
-        Customer customer = new NormalCustomer(customerName);
+        Customer customer = createCustomer(customerName);
         LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
         Size size = readSize();
 
@@ -174,7 +174,26 @@ public class PizzaUi {
         }
         pressEnterToContinue();
     }
+    private Customer createCustomer(String customerName) {
+        System.out.println("Vælg kundetype:");
+        System.out.println("1. Normal");
+        System.out.println("2. VIP");
+        System.out.println("3. Employee");
 
+        int choice = readInt("Vælg kundetype: ");
+
+        switch (choice) {
+            case 1:
+                return new NormalCustomer(customerName);
+            case 2:
+                return new VIPCustomer(customerName);
+            case 3:
+                return new EmployeeCustomer(customerName);
+            default:
+                System.out.println("Ugyldigt valg. Normal kunde vælges automatisk.");
+                return new NormalCustomer(customerName);
+        }
+    }
     private void markOrderReady() {
         int orderNumber = readInt("Ordrenummer: ");
         boolean success = orderManager.markOrderAsReady(orderNumber);
