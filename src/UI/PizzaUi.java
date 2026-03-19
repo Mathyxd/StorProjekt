@@ -43,7 +43,8 @@ public class PizzaUi {
         System.out.println("3. Vis aktive ordrer");
         System.out.println("4. Marker ordre som klar");
         System.out.println("5. Vis ordre Historik");
-        System.out.println("6. Afslut");
+        System.out.println("6. Vis kundeoversigt");
+        System.out.println("7. Afslut");
     }
 
     private void handleChoice(int choice) {
@@ -64,6 +65,9 @@ public class PizzaUi {
                 showOrderHistory();
                 break;
             case 6:
+                showCustomerOverview();
+                break;
+            case 7:
                 exitProgram();
                 break;
             default:
@@ -231,6 +235,8 @@ public class PizzaUi {
         System.out.println("Samlet omsætning: " + String.format("%.2f", totalRevenue) + "kr");
         pressEnterToContinue();
     }
+
+
 
     private void exitProgram() {
         running = false;
