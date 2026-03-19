@@ -102,7 +102,7 @@ public class PizzaUi {
             return;
         }
 
-        Customer customer = createCustomer(customerName,email);
+        Customer customer = createCustomer(customerName, email);
         LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
         Size size = readSize();
 
@@ -125,6 +125,7 @@ public class PizzaUi {
                 order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
         pressEnterToContinue();
     }
+
     private String readEmail() {
         while (true) {
             String email = readText("Email: ");
@@ -191,6 +192,7 @@ public class PizzaUi {
         }
         pressEnterToContinue();
     }
+
     private Customer createCustomer(String customerName, String email) {
         System.out.println("Vælg kundetype:");
         System.out.println("1. Normal");
@@ -211,6 +213,7 @@ public class PizzaUi {
                 return new NormalCustomer(customerName, email);
         }
     }
+
     private void markOrderReady() {
         int orderNumber = readInt("Ordrenummer: ");
         boolean success = orderManager.markOrderAsReady(orderNumber);
@@ -222,6 +225,7 @@ public class PizzaUi {
         }
         pressEnterToContinue();
     }
+
     public void showOrderHistory() {
         List<String> orders = FileHandler.loadOrders();
 
@@ -249,8 +253,25 @@ public class PizzaUi {
         pressEnterToContinue();
     }
 
+    public void showCustomerOverview() {
+        List<String> customers = FileHandler.loadCustomer();
 
+        if (customers.isEmpty()) {
+            System.out.println("Ingen kunder er blevet registreret endnu. ");
+            pressEnterToContinue();
+            return;
+        }
+        System.out.println("\n=== Kundeoversigt ===");
+        for (String entry : customers) {
+            String[] parts = entry.split(",");
+            System.out.println("Navn: " + parts[0] + " | Type: " + parts[1]);
+        }
+        System.out.println("Antal kunder: " + customers.size());
+        pressEnterToContinue();
+        System.out.println("Antal kunder: "+customers.size());
 
+        pressEnterToContinue();
+    }
     private void exitProgram() {
         running = false;
         System.out.println("Programmet lukker.");
@@ -281,6 +302,11 @@ public class PizzaUi {
     }
 
 }
+
+
+
+
+
 
 
 
