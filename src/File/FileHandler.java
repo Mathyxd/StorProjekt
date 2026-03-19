@@ -29,6 +29,7 @@ public class FileHandler {
             ExceptionHandler.handle(e);
         }
     }
+
     public static List<String> loadOrders() {
         List<String> orders = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FileHandler.ORDERS_FILE))) {
@@ -36,7 +37,7 @@ public class FileHandler {
             while ((line = reader.readLine()) != null) {
                 orders.add(line);
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             ExceptionHandler.handle(e);
         }
         return orders;
@@ -53,24 +54,38 @@ public class FileHandler {
                 String name = parts[1].trim();
                 String ingredients = parts[2].trim();
                 double price = Double.parseDouble(parts[3].trim());
-                pizzas.add(new Pizza(number,prepTimeMinutes, name, ingredients, price));
+                pizzas.add(new Pizza(number, prepTimeMinutes, name, ingredients, price));
             }
         } catch (IOException e) {
             ExceptionHandler.handle(e);
         }
         return pizzas;
     }
+
     public static void saveCustomer(Customer customer) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FileHandler.CUSTOMER_FILE, true))) {
             writer.println(
                     customer.getName() + "," +
-                    customer.getCustomerType()
+                            customer.getCustomerType()
             );
         } catch (IOException e) {
             ExceptionHandler.handle(e);
         }
     }
+
+    public static List<String> loadCustomer() {
+        List<String> customer = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FileHandler.CUSTOMER_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                customer.add(line);
+            }
+        } catch (IOException e) {
+            ExceptionHandler.handle(e);
+        }
+        return customer;
     }
+}
 
 
 
