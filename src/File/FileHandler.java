@@ -66,6 +66,7 @@ public class FileHandler {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FileHandler.CUSTOMER_FILE, true))) {
             writer.println(
                     customer.getName() + "," +
+                            customer.getEmail() + "," +
                             customer.getCustomerType()
             );
         } catch (IOException e) {

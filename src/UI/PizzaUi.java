@@ -264,12 +264,9 @@ public class PizzaUi {
         System.out.println("\n=== Kundeoversigt ===");
         for (String entry : customers) {
             String[] parts = entry.split(",");
-            System.out.println("Navn: " + parts[0] + " | Type: " + parts[1]);
+            System.out.println("Navn: " + parts[0] + " | Email: " + parts[1] + " | Type: " + parts[2]);
         }
         System.out.println("Antal kunder: " + customers.size());
-        pressEnterToContinue();
-        System.out.println("Antal kunder: "+customers.size());
-
         pressEnterToContinue();
     }
     private void exitProgram() {
