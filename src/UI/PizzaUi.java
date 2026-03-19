@@ -25,6 +25,7 @@ public class PizzaUi {
         orderUi = new OrderUi(scanner, orderManager, paymentService, menu);
         customerUi = new CustomerUi(scanner);
         menuUi = new MenuUi(scanner, menu);
+        orderUi = new OrderUi(scanner, orderManager, paymentService, menu, customerUi, menuUi);
         running = true;
     }
 
@@ -49,7 +50,7 @@ public class PizzaUi {
         System.out.println("8. Afslut");
     }
 
-    private void handleChoice(int choice) {
+    public void handleChoice(int choice) {
         switch (choice) {
             case 1:
                 showMenuCard();
@@ -79,11 +80,14 @@ public class PizzaUi {
                 System.out.println("Ugyldigt valg. Prøv igen.");
         }
     }
+    public void exitProgram() {
+        running = false;
+        System.out.println("Programmet lukker.");
+    }
 
 
 
-
-    private double readDouble(String message) {
+    public double readDouble(String message) {
         while (true) {
             System.out.print(message);
             if (scanner.hasNextDouble()) {
@@ -102,7 +106,7 @@ public class PizzaUi {
 
 
 
-    private void pressEnterToContinue() {
+    public void pressEnterToContinue() {
         System.out.println("\nTryk Enter for at fortsætte...");
         scanner.nextLine();
     }

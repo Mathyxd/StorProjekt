@@ -10,15 +10,13 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class CustomerUi {
-
-    private final Scanner scanner;
+public class CustomerUi extends BaseUi {
 
     public CustomerUi(Scanner scanner) {
-        this.scanner = scanner;
+        super(scanner);
     }
 
-    private Customer createCustomer(String customerName, String email) {
+    public Customer createCustomer(String customerName, String email) {
         System.out.println("Vælg kundetype:");
         System.out.println("1. Normal");
         System.out.println("2. VIP");
@@ -39,7 +37,7 @@ public class CustomerUi {
         }
     }
 
-    private String readEmail() {
+    public String readEmail() {
         while (true) {
             String email = readText("Email: ");
             if (email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
@@ -65,12 +63,8 @@ public class CustomerUi {
         System.out.println("Antal kunder: " + customers.size());
         pressEnterToContinue();
     }
-    private void exitProgram() {
-        running = false;
-        System.out.println("Programmet lukker.");
-    }
 
-    private int readInt(String message) {
+    public int readInt(String message) {
         while (true) {
             System.out.print(message);
             if (scanner.hasNextInt()) {
@@ -84,7 +78,7 @@ public class CustomerUi {
         }
     }
 
-    private String readText(String message) {
+    public String readText(String message) {
         System.out.print(message);
         return scanner.nextLine().trim();
     }

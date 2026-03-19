@@ -9,16 +9,16 @@ import java.util.Scanner;
 import UI.*;
 
 
-public class MenuUi {
-    private final Scanner scanner;
+public class MenuUi extends BaseUi {
+
     private final Menu menu;
 
     public MenuUi(Scanner scanner, Menu menu) {
-        this.scanner = scanner;
+        super(scanner);
         this.menu = menu;
     }
 
-    private void showMenuCard() {
+    public void showMenuCard() {
         System.out.println("=== Menukort ===");
         for (Pizza pizza : menu.getPizzas()) {
             System.out.println(
@@ -32,7 +32,7 @@ public class MenuUi {
         pressEnterToContinue();
     }
 
-    private Size readSize() {
+    public Size readSize() {
         System.out.println("Vælg størrelse:");
         System.out.println("1. Small");
         System.out.println("2. Medium");

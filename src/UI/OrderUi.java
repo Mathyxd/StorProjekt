@@ -11,22 +11,26 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 
-public class OrderUi {
-    private final Scanner scanner;
+public class OrderUi extends BaseUi {
+
     private final OrderManager orderManager;
     private final PaymentService paymentService;
     private final Menu menu;
+    private final CustomerUi customerUi;
+    private final MenuUi menuUi;
 
-    public OrderUi(Scanner scanner, OrderManager orderManager, PaymentService paymentService, Menu menu) {
-        this.scanner = scanner;
+    public OrderUi(Scanner scanner, OrderManager orderManager, PaymentService paymentService, Menu menu, CustomerUi customerUi, MenuUi menuUi) {
+        super(scanner);
         this.orderManager = orderManager;
         this.paymentService = paymentService;
         this.menu = menu;
+        this.customerUi = customerUi;
+        this.menuUi = menuUi;
     }
 
-    private void createOrder() {
+    public void createOrder() {
         String customerName = readText("Kundenavn: ");
-        String email = readEmail();
+        String email = customerUi.readEmail();
         int pizzaNumber = readInt("Pizzanummer: ");
         int quantity = readInt("Antal: ");
 
@@ -37,9 +41,9 @@ public class OrderUi {
             return;
         }
 
-        Customer customer = createCustomer(customerName, email);
+        Customer customer = customerUi.createCustomer(customerName, email);
         LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
-        Size size = readSize();
+        Size size = menuUi.readSize();
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
         double total = paymentService.calculateTotal(order);
@@ -65,7 +69,7 @@ public class OrderUi {
     }
 
 
-    private void showActiveOrders() {
+    public void showActiveOrders() {
         var orders = orderManager.getActiveOrdersSorted();
 
         if (orders.isEmpty()) {
@@ -87,7 +91,7 @@ public class OrderUi {
         pressEnterToContinue();
     }
 
-    private void markOrderReady() {
+    public void markOrderReady() {
         int orderNumber = readInt("Ordrenummer: ");
         boolean success = orderManager.markOrderAsReady(orderNumber);
 
@@ -98,7 +102,7 @@ public class OrderUi {
         }
         pressEnterToContinue();
     }
-    private void markOrderComplete() {
+    public void markOrderComplete() {
         int orderNumber = readInt("Ordrenummer: ");
         boolean success = orderManager.markOrderAsComplete(orderNumber);
 
