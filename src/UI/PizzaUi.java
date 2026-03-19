@@ -91,6 +91,7 @@ public class PizzaUi {
 
     private void createOrder() {
         String customerName = readText("Kundenavn: ");
+        String email = readEmail();
         int pizzaNumber = readInt("Pizzanummer: ");
         int quantity = readInt("Antal: ");
 
@@ -101,7 +102,7 @@ public class PizzaUi {
             return;
         }
 
-        Customer customer = createCustomer(customerName);
+        Customer customer = createCustomer(customerName,email);
         LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
         Size size = readSize();
 
@@ -124,6 +125,16 @@ public class PizzaUi {
                 order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
         pressEnterToContinue();
     }
+    private String readEmail() {
+        while (true) {
+            String email = readText("Email: ");
+            if (email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                return email;
+            }
+            System.out.println("Ugyldig email. Prøv igen.");
+        }
+    }
+
     private double readDouble(String message) {
         while (true) {
             System.out.print(message);
@@ -170,6 +181,8 @@ public class PizzaUi {
         for (Order order : orders) {
             System.out.println(
                     "Ordre #" + order.getOrderNumber() +
+                            " | Kunde: " + order.getCustomer().getName() +
+                            " | Type: " + order.getCustomer().getCustomerType() +
                             " | Pizza: " + order.getPizza().getName() +
                             " | Antal: " + order.getQuantity() +
                             " | Status: " + order.getStatus() +
@@ -178,7 +191,7 @@ public class PizzaUi {
         }
         pressEnterToContinue();
     }
-    private Customer createCustomer(String customerName) {
+    private Customer createCustomer(String customerName, String email) {
         System.out.println("Vælg kundetype:");
         System.out.println("1. Normal");
         System.out.println("2. VIP");
@@ -188,14 +201,14 @@ public class PizzaUi {
 
         switch (choice) {
             case 1:
-                return new NormalCustomer(customerName);
+                return new NormalCustomer(customerName, email);
             case 2:
-                return new VIPCustomer(customerName);
+                return new VIPCustomer(customerName, email);
             case 3:
-                return new EmployeeCustomer(customerName);
+                return new EmployeeCustomer(customerName, email);
             default:
                 System.out.println("Ugyldigt valg. Normal kunde vælges automatisk.");
-                return new NormalCustomer(customerName);
+                return new NormalCustomer(customerName, email);
         }
     }
     private void markOrderReady() {

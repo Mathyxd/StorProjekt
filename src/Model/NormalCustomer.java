@@ -1,8 +1,9 @@
 package Model;
 
 public class NormalCustomer extends Customer {
-    public NormalCustomer(String name) {
-        super(name);
+
+    public NormalCustomer(String name, String email) {
+        super(name, email);
     }
 
     @Override
