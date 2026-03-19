@@ -125,6 +125,9 @@ public class PizzaUi {
             System.out.println("Betaling afvist. Kunden har ikke betalt nok.");
         }
 
+        FileHandler.saveCustomer(customer);
+        FileHandler.saveOrder(order);
+
         System.out.println("Ordren er færdig kl. " +
                 order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
         pressEnterToContinue();
