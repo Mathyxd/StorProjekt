@@ -2,6 +2,7 @@ package File;
 
 import Model.Order;
 import Model.Pizza;
+import Model.Customer;
 import util.ExceptionHandler;
 
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class FileHandler {
     private static final String ORDERS_FILE = "Orders.csv";
     private static final String MENU_FILE = "menu.csv";
+    private static final String CUSTOMER_FILE = "customer.csv";
 
     public static void saveOrder(Order order) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FileHandler.ORDERS_FILE, true))) {
@@ -57,6 +59,16 @@ public class FileHandler {
             ExceptionHandler.handle(e);
         }
         return pizzas;
+    }
+    public static void saveCustomer(Customer customer) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FileHandler.CUSTOMER_FILE, true))) {
+            writer.println(
+                    customer.getName()
+            );
+        } catch (IOException e) {
+            ExceptionHandler.handle(e);
+        }
+    }
     }
 }
 
