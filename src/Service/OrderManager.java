@@ -44,7 +44,7 @@ public class OrderManager { // Klasse der styrer alle ordrer
     }
 
     // Fjern ordre fra aktiv liste når den er afhentet og betalt
-    public boolean completeOrder(int orderNumber) {
+    public boolean markOrderAsComplete(int orderNumber) {
         Order order = findActiveOrder(orderNumber);
         if (order == null) {
             return false;

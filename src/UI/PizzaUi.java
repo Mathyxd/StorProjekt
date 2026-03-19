@@ -42,9 +42,10 @@ public class PizzaUi {
         System.out.println("2. Opret ordre");
         System.out.println("3. Vis aktive ordrer");
         System.out.println("4. Marker ordre som klar");
-        System.out.println("5. Vis ordre Historik");
-        System.out.println("6. Vis kundeoversigt");
-        System.out.println("7. Afslut");
+        System.out.println("5. Marker ordre som leveret");
+        System.out.println("6. Vis ordre Historik");
+        System.out.println("7. Vis kundeoversigt");
+        System.out.println("8. Afslut");
     }
 
     private void handleChoice(int choice) {
@@ -62,12 +63,15 @@ public class PizzaUi {
                 markOrderReady();
                 break;
             case 5:
-                showOrderHistory();
+                markOrderComplete();
                 break;
             case 6:
-                showCustomerOverview();
+                showOrderHistory();
                 break;
             case 7:
+                showCustomerOverview();
+                break;
+            case 8:
                 exitProgram();
                 break;
             default:
@@ -220,6 +224,17 @@ public class PizzaUi {
 
         if (success) {
             System.out.println("Ordren er markeret som klar.");
+        } else {
+            System.out.println("Ordren blev ikke fundet.");
+        }
+        pressEnterToContinue();
+    }
+    private void markOrderComplete() {
+        int orderNumber = readInt("Ordrenummer: ");
+        boolean success = orderManager.markOrderAsComplete(orderNumber);
+
+        if(success) {
+            System.out.println("Ordren er market som leveret.");
         } else {
             System.out.println("Ordren blev ikke fundet.");
         }
