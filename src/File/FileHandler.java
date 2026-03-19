@@ -63,14 +63,14 @@ public class FileHandler {
     public static void saveCustomer(Customer customer) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FileHandler.CUSTOMER_FILE, true))) {
             writer.println(
-                    customer.getName()
+                    customer.getName() + "," +
+                    customer.getCustomerType()
             );
         } catch (IOException e) {
             ExceptionHandler.handle(e);
         }
     }
     }
-}
 
 
 
