@@ -94,8 +94,10 @@ public class PizzaUi {
         }
 
         Customer customer = new NormalCustomer(customerName);
-        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
-        Size size = readSize();
+
+        // Automatisk afhentningstid baseret på prep time
+        LocalDateTime pickupTime = LocalDateTime.now()
+                .plusMinutes(pizza.getPrepTimeMinutes() * quantity);
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
 
