@@ -6,6 +6,7 @@ import java.util.List;// Interface for lister
 import java.time.LocalDateTime;
 
 import Model.*;
+import util.OrderSorter;
 
 public class OrderManager { // Klasse der styrer alle ordrer
 
@@ -23,14 +24,9 @@ public class OrderManager { // Klasse der styrer alle ordrer
 
     // Hent alle aktive ordrer sorteret efter afhentingstid
     public List<Order> getActiveOrdersSorted() {
-        List<Order> sorted = new ArrayList<>(activeOrders);
-        sorted.sort(Comparator.comparing(Order::getPickupTime));
+        ArrayList<Order> sorted = new ArrayList<>(activeOrders);
+        OrderSorter.sortPizza(sorted);
         return sorted;
-    }
-
-    // Hent alle afsluttede ordrer
-    public List<Order> getCompletedOrders() {
-        return new ArrayList<>(completedOrders);
     }
 
     // Marker ordre som klar (Mario har lavet pizzaen)
