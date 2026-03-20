@@ -6,25 +6,28 @@ import Model.*;
 import util.*;
 import File.*;
 
-import java.util.List;
 import java.util.Scanner;
-import java.time.LocalDateTime;
 
-public class PizzaUi {
 
-    private final Scanner scanner;
-    private final OrderManager orderManager;
-    private final PaymentService paymentService;
-    private final Menu menu;
+public class PizzaUi extends BaseUi {
+
+    private final OrderUi orderUi;
+    private final CustomerUi customerUi;
+    private final MenuUi menuUi;
     private boolean running;
 
 
     public PizzaUi() {
-        scanner = new Scanner(System.in);
-        orderManager = new OrderManager();
-        paymentService = new PaymentService();
+        super(new Scanner(System.in));
+        OrderManager orderManager = new OrderManager();
+        PaymentService paymentService = new PaymentService();
+        Menu menu = new Menu();
+
+
+        customerUi = new CustomerUi(scanner);
+        menuUi = new MenuUi(scanner, menu);
+        orderUi = new OrderUi(scanner, orderManager, paymentService, menu, customerUi, menuUi);
         running = true;
-        menu = new Menu();
     }
 
     public void start() {
@@ -48,28 +51,28 @@ public class PizzaUi {
         System.out.println("8. Afslut");
     }
 
-    private void handleChoice(int choice) {
+    public void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                showMenuCard();
+                menuUi.showMenuCard();
                 break;
             case 2:
-                createOrder();
+                orderUi.createOrder();
                 break;
             case 3:
-                showActiveOrders();
+                orderUi.showActiveOrders();
                 break;
             case 4:
-                markOrderReady();
+                orderUi.markOrderReady();
                 break;
             case 5:
-                markOrderComplete();
+                orderUi.markOrderComplete();
                 break;
             case 6:
-                showOrderHistory();
+                orderUi.showOrderHistory();
                 break;
             case 7:
-                showCustomerOverview();
+                customerUi.showCustomerOverview();
                 break;
             case 8:
                 exitProgram();
@@ -78,245 +81,12 @@ public class PizzaUi {
                 System.out.println("Ugyldigt valg. Prøv igen.");
         }
     }
-
-    private void showMenuCard() {
-        System.out.println("=== Menukort ===");
-        for (Pizza pizza : menu.getPizzas()) {
-            System.out.println(
-                    pizza.getNumber() + ". " +
-                            pizza.getName() + " - " +
-                            pizza.getIngredients() + " - " +
-                            pizza.getPrice() + " kr"
-
-            );
-        }
-        pressEnterToContinue();
-    }
-
-    private void createOrder() {
-        String customerName = readText("Kundenavn: ");
-        String email = readEmail();
-        int pizzaNumber = readInt("Pizzanummer: ");
-        int quantity = readInt("Antal: ");
-
-        Pizza pizza = menu.findPizzaByNumber(pizzaNumber);
-
-        if (pizza == null) {
-            System.out.println("Pizza findes ikke.");
-            return;
-        }
-
-        Customer customer = createCustomer(customerName, email);
-        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
-        Size size = readSize();
-
-        Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
-        double total = paymentService.calculateTotal(order);
-        System.out.println("Ordre oprettet: #" + order.getOrderNumber());
-        System.out.println("Samlet pris: " + total + " kr");
-
-        double amountPaid = readDouble("Betalt beløb: ");
-
-        if (paymentService.processPayment(order, amountPaid)) {
-            double change = paymentService.calculateChange(order, amountPaid);
-            System.out.println("Betaling godkendt.");
-            System.out.println("Byttepenge: " + change + " kr");
-        } else {
-            System.out.println("Betaling afvist. Kunden har ikke betalt nok.");
-        }
-
-        FileHandler.saveCustomer(customer);
-        FileHandler.saveOrder(order);
-
-        System.out.println("Ordren er færdig kl. " +
-                order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
-        pressEnterToContinue();
-    }
-
-    private String readEmail() {
-        while (true) {
-            String email = readText("Email: ");
-            if (email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                return email;
-            }
-            System.out.println("Ugyldig email. Prøv igen.");
-        }
-    }
-
-    private double readDouble(String message) {
-        while (true) {
-            System.out.print(message);
-            if (scanner.hasNextDouble()) {
-                double value = scanner.nextDouble();
-                scanner.nextLine();
-                return value;
-            }
-
-            System.out.println("Skriv et gyldigt beløb.");
-            scanner.nextLine();
-        }
-    }
-
-    private Size readSize() {
-        System.out.println("Vælg størrelse:");
-        System.out.println("1. Small");
-        System.out.println("2. Medium");
-        System.out.println("3. Large");
-
-        int choice = readInt("Vælg størrelse: ");
-
-        switch (choice) {
-            case 1:
-                return Size.SMALL;
-            case 2:
-                return Size.MEDIUM;
-            case 3:
-                return Size.LARGE;
-            default:
-                System.out.println("Ugyldigt valg. Medium vælges automatisk.");
-                return Size.MEDIUM;
-        }
-    }
-
-    private void showActiveOrders() {
-        var orders = orderManager.getActiveOrdersSorted();
-
-        if (orders.isEmpty()) {
-            System.out.println("Ingen aktive ordrer.");
-            return;
-        }
-
-        for (Order order : orders) {
-            System.out.println(
-                    "Ordre #" + order.getOrderNumber() +
-                            " | Kunde: " + order.getCustomer().getName() +
-                            " | Type: " + order.getCustomer().getCustomerType() +
-                            " | Pizza: " + order.getPizza().getName() +
-                            " | Antal: " + order.getQuantity() +
-                            " | Status: " + order.getStatus() +
-                            " | Klar: " + order.getPickupTime()
-            );
-        }
-        pressEnterToContinue();
-    }
-
-    private Customer createCustomer(String customerName, String email) {
-        System.out.println("Vælg kundetype:");
-        System.out.println("1. Normal");
-        System.out.println("2. VIP");
-        System.out.println("3. Employee");
-
-        int choice = readInt("Vælg kundetype: ");
-
-        switch (choice) {
-            case 1:
-                return new NormalCustomer(customerName, email);
-            case 2:
-                return new VIPCustomer(customerName, email);
-            case 3:
-                return new EmployeeCustomer(customerName, email);
-            default:
-                System.out.println("Ugyldigt valg. Normal kunde vælges automatisk.");
-                return new NormalCustomer(customerName, email);
-        }
-    }
-
-    private void markOrderReady() {
-        int orderNumber = readInt("Ordrenummer: ");
-        boolean success = orderManager.markOrderAsReady(orderNumber);
-
-        if (success) {
-            System.out.println("Ordren er markeret som klar.");
-        } else {
-            System.out.println("Ordren blev ikke fundet.");
-        }
-        pressEnterToContinue();
-    }
-    private void markOrderComplete() {
-        int orderNumber = readInt("Ordrenummer: ");
-        boolean success = orderManager.markOrderAsComplete(orderNumber);
-
-        if(success) {
-            System.out.println("Ordren er market som leveret.");
-        } else {
-            System.out.println("Ordren blev ikke fundet.");
-        }
-        pressEnterToContinue();
-    }
-
-    public void showOrderHistory() {
-        List<String> orders = FileHandler.loadOrders();
-
-        if (orders.isEmpty()) {
-            System.out.println("Ingen ordrer i historikken endnu.");
-            pressEnterToContinue();
-            return;
-        }
-        System.out.println("\n===OrdreHisotirk===");
-        double totalRevenue = 0;
-        for (String order : orders) {
-            String[] parts = order.split(",");
-            double price = Double.parseDouble(parts[4]);
-            totalRevenue += price;
-            System.out.println(
-                    "Kunde: " + parts[0] +
-                            " | Type: " + parts[1] +
-                            " | Pizza: " + parts[2] +
-                            " | Tidspunkt: " + parts[3] +
-                            " | Pris: " + parts[4] + " kr"
-            );
-        }
-        System.out.println("---------");
-        System.out.println("Samlet omsætning: " + String.format("%.2f", totalRevenue) + "kr");
-        pressEnterToContinue();
-    }
-
-    public void showCustomerOverview() {
-        List<String> customers = FileHandler.loadCustomer();
-
-        if (customers.isEmpty()) {
-            System.out.println("Ingen kunder er blevet registreret endnu. ");
-            pressEnterToContinue();
-            return;
-        }
-        System.out.println("\n=== Kundeoversigt ===");
-        for (String entry : customers) {
-            String[] parts = entry.split(",");
-            System.out.println("Navn: " + parts[0] + " | Email: " + parts[1] + " | Type: " + parts[2]);
-        }
-        System.out.println("Antal kunder: " + customers.size());
-        pressEnterToContinue();
-    }
-    private void exitProgram() {
+    public void exitProgram() {
         running = false;
         System.out.println("Programmet lukker.");
     }
 
-    private int readInt(String message) {
-        while (true) {
-            System.out.print(message);
-            if (scanner.hasNextInt()) {
-                int value = scanner.nextInt();
-                scanner.nextLine();
-                return value;
-            }
-
-            System.out.println("Skriv et gyldigt tal.");
-            scanner.nextLine();
-        }
-    }
-
-    private String readText(String message) {
-        System.out.print(message);
-        return scanner.nextLine().trim();
-    }
-
-    private void pressEnterToContinue() {
-        System.out.println("\nTryk Enter for at fortsætte...");
-        scanner.nextLine();
-    }
-
-}
+ }
 
 
 
