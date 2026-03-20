@@ -55,16 +55,6 @@ public class OrderManager { // Klasse der styrer alle ordrer
         return true;
     }
 
-    // Beregn samlet omsætning
-    public double getTotalRevenue() {
-        double total = 0;
-        for (Order order : completedOrders) {
-            total += order.getTotalPrice();
-        }
-        return total;
-
-    }
-
     // Find aktiv ordre ud fra ordrenummer
     private Order findActiveOrder(int orderNumber) {
         for (Order order : activeOrders) {
@@ -74,8 +64,5 @@ public class OrderManager { // Klasse der styrer alle ordrer
         }
         return null;
     }
-    public Order findOrder(int orderNumber) {
-        return findActiveOrder(orderNumber);
-    }
-
 }
+

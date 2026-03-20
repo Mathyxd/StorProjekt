@@ -42,7 +42,7 @@ public class FileHandler {
         }
         return orders;
     }
-
+//Ikke i brug endnu
     public static List<Pizza> loadMenu() {
         List<Pizza> pizzas = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FileHandler.MENU_FILE))) {
