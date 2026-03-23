@@ -7,7 +7,7 @@ public class Pizza {
     private final String ingredients;
     private final double price;
 
-    public Pizza(int number,int prepTimeMinutes, String name, String ingredients, double price) {
+    public Pizza(int number, int prepTimeMinutes, String name, String ingredients, double price) {
         if (number <= 0) {
             throw new IllegalArgumentException("Pizzanummer skal være større end 0");
         }
@@ -31,13 +31,12 @@ public class Pizza {
     public int getNumber() {
         return number;
     }
-    public int getPrepTimeMinutes() {
-        return prepTimeMinutes;
-    }
 
     public String getName() {
         return name;
     }
+
+    public int getPrepTimeMinutes() { return prepTimeMinutes;}
 
     public String getIngredients() {
         return ingredients;
