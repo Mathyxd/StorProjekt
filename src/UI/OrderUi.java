@@ -11,7 +11,8 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 
 
-public class OrderUi extends BaseUi {
+public class
+OrderUi extends BaseUi {
 
     private final OrderManager orderManager;
     private final PaymentService paymentService;
@@ -104,12 +105,13 @@ public class OrderUi extends BaseUi {
     }
     public void markOrderComplete() {
         int orderNumber = readInt("Ordrenummer: ");
-        boolean success = orderManager.markOrderAsComplete(orderNumber);
+        Order completedOrder = orderManager.completeOrder(orderNumber);
 
-        if(success) {
-            System.out.println(GREEN + "Ordren er market som leveret." + RESET);
+        if (completedOrder != null) {
+            FileHandler.saveOrder(completedOrder);
+            System.out.println("Ordren er markeret som leveret og gemt i historikken.");
         } else {
-            System.out.println(YELLOW + "Ordren blev ikke fundet." + RESET);
+            System.out.println("Ordren blev ikke fundet.");
         }
         pressEnterToContinue();
     }

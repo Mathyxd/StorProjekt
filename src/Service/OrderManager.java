@@ -50,6 +50,17 @@ public class OrderManager { // Klasse der styrer alle ordrer
         completedOrders.add(order);
         return true;
     }
+    public Order completeOrder(int orderNumber) {
+        Order order = findActiveOrder(orderNumber);
+        if (order == null) {
+            return null;
+        }
+
+        order.setStatus(OrderStatus.COMPLETED);
+        activeOrders.remove(order);
+        completedOrders.add(order);
+        return order;
+    }
 
     // Find aktiv ordre ud fra ordrenummer
     private Order findActiveOrder(int orderNumber) {
