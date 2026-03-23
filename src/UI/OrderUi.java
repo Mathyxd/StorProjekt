@@ -49,20 +49,20 @@ OrderUi extends BaseUi {
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
         double total = paymentService.calculateTotal(order);
         System.out.println(GREEN + "Ordre oprettet: #" + order.getOrderNumber() + RESET);
-        System.out.println("Samlet pris: " + total + " kr");
+        System.out.println("Samlet pris: " + String.format("%.2f", total) + " kr");
+
 
         double amountPaid = readDouble("Betalt beløb: ");
 
         if (paymentService.processPayment(order, amountPaid)) {
             double change = paymentService.calculateChange(order, amountPaid);
             System.out.println(GREEN + "Betaling godkendt." + RESET);
-            System.out.println("Byttepenge: " + change + " kr");
+            System.out.println("Byttepenge: " + String.format("%.2f", change) + " kr");
         } else {
             System.out.println(RED + "Betaling afvist. Kunden har ikke betalt nok." + RESET);
         }
 
         FileHandler.saveCustomer(customer);
-        FileHandler.saveOrder(order);
 
         System.out.println("Ordren er færdig kl. " +
                 order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
@@ -135,7 +135,7 @@ OrderUi extends BaseUi {
                             " | Type: " + parts[1] +
                             " | Pizza: " + parts[2] +
                             " | Tidspunkt: " + parts[3] +
-                            " | Pris: " + parts[4] + " kr"
+                            " | Pris: " + String.format("%.2f", price) + " kr"
             );
         }
         System.out.println("---------");
