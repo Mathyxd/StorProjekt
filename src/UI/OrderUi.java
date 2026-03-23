@@ -43,7 +43,7 @@ OrderUi extends BaseUi {
         }
 
         Customer customer = customerUi.createCustomer(customerName, email);
-        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
+        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(pizza.getPrepTimeMinutes());
         Size size = menuUi.readSize();
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);

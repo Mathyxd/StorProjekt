@@ -63,24 +63,4 @@ public class CustomerUi extends BaseUi {
         System.out.println("Antal kunder: " + customers.size());
         pressEnterToContinue();
     }
-
-    public int readInt(String message) {
-        while (true) {
-            System.out.print(message);
-            if (scanner.hasNextInt()) {
-                int value = scanner.nextInt();
-                scanner.nextLine();
-                return value;
-            }
-
-            System.out.println(YELLOW + "Skriv et gyldigt tal." + RESET);
-            scanner.nextLine();
-        }
-    }
-
-    public String readText(String message) {
-        System.out.print(message);
-        return scanner.nextLine().trim();
-    }
-
 }

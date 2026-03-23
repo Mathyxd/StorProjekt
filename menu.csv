@@ -1,35 +1,35 @@
-1,Margherita,Tomat ost oregano,65
-2,Vesuvio,Tomat ost skinke,72
-3,Capricciosa,Tomat ost skinke champignon,78
-4,Pepperoni,Tomat ost pepperoni,80
-5,Hawaii,Tomat ost skinke ananas,79
-6,Napoli,Tomat ost ansjoser oliven,81
-7,Quattro Stagioni,Tomat ost skinke champignon rejer peberfrugt,85
-8,Romana,Tomat ost bacon løg champignon,84
-9,Siciliana,Tomat ost salami løg oliven,83
-10,Calzone,Indbagt pizza med skinke og ost,85
-11,Vegetariana,Tomat ost grøntsager,75
-12,Diavola,Tomat ost stærk salami chili,82
-13,Milano,Tomat ost skinke bacon pepperoni,88
-14,Parma,Tomat ost parmaskinke rucola parmesan,95
-15,Tonno,Tomat ost tun løg,82
-16,Pollo,Tomat ost kylling champignon,85
-17,Kebab,Tomat ost kebab salat dressing,90
-18,Mexicana,Tomat ost oksekød jalapenos majs,87
-19,BBQ Chicken,BBQ sauce ost kylling løg,92
-20,Carbonara,Flødesauce ost bacon æg,89
-21,Firenze,Tomat ost spinat feta,84
-22,Greek,Tomat ost feta oliven løg,83
-23,Seafood,Tomat ost rejer muslinger hvidløg,95
-24,Bolognese,Tomat ost kødsovs,88
-25,Prosciutto,Tomat ost skinke,75
-26,Quattro Formaggi,Fire slags ost,90
-27,Spicy Beef,Tomat ost oksekød chili løg,89
-28,Chicken Curry,Karri sauce ost kylling,91
-29,Deluxe,Tomat ost skinke bacon pepperoni oksekød,99
-30,Marios Special,Tomat ost alt muligt,105
-31,Trøffel Pizza,Trøffelcreme ost svampe,110
-32,Salami Supreme,Tomat ost salami ekstra ost,92
-33,Vegan Pizza,Tomatsauce vegansk ost grønt,85
-34,Breakfast Pizza,Æg bacon ost,88
-35,Danish Special,Tomat ost bacon kartoffel løg,93
+1,10,Margherita,Tomat ost oregano,65
+2,11,Vesuvio,Tomat ost skinke,72
+3,13,Capricciosa,Tomat ost skinke champignon,78
+4,12,Pepperoni,Tomat ost pepperoni,80
+5,12,Hawaii,Tomat ost skinke ananas,79
+6,14,Napoli,Tomat ost ansjoser oliven,81
+7,16,Quattro Stagioni,Tomat ost skinke champignon rejer peberfrugt,85
+8,13,Romana,Tomat ost bacon løg champignon,84
+9,13,Siciliana,Tomat ost salami løg oliven,83
+10,18,Calzone,Indbagt pizza med skinke og ost,85
+11,12,Vegetariana,Tomat ost grøntsager,75
+12,13,Diavola,Tomat ost stærk salami chili,82
+13,14,Milano,Tomat ost skinke bacon pepperoni,88
+14,15,Parma,Tomat ost parmaskinke rucola parmesan,95
+15,12,Tonno,Tomat ost tun løg,82
+16,14,Pollo,Tomat ost kylling champignon,85
+17,15,Kebab,Tomat ost kebab salat dressing,90
+18,14,Mexicana,Tomat ost oksekød jalapenos majs,87
+19,15,BBQ Chicken,BBQ sauce ost kylling løg,92
+20,14,Carbonara,Flødesauce ost bacon æg,89
+21,13,Firenze,Tomat ost spinat feta,84
+22,12,Greek,Tomat ost feta oliven løg,83
+23,16,Seafood,Tomat ost rejer muslinger hvidløg,95
+24,13,Bolognese,Tomat ost kødsovs,88
+25,11,Prosciutto,Tomat ost skinke,75
+26,14,Quattro Formaggi,Fire slags ost,90
+27,14,Spicy Beef,Tomat ost oksekød chili løg,89
+28,15,Chicken Curry,Karri sauce ost kylling,91
+29,16,Deluxe,Tomat ost skinke bacon pepperoni oksekød,99
+30,18,Marios Special,Tomat ost alt muligt,105
+31,17,Trøffel Pizza,Trøffelcreme ost svampe,110
+32,13,Salami Supreme,Tomat ost salami ekstra ost,92
+33,13,Vegan Pizza,Tomatsauce vegansk ost grønt,85
+34,13,Breakfast Pizza,Æg bacon ost,88
+35,14,Danish Special,Tomat ost bacon kartoffel løg,93

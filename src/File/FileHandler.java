@@ -42,7 +42,7 @@ public class FileHandler {
         }
         return orders;
     }
-//Ikke i brug endnu
+
     public static List<Pizza> loadMenu() {
         List<Pizza> pizzas = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FileHandler.MENU_FILE))) {
@@ -50,10 +50,10 @@ public class FileHandler {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 int number = Integer.parseInt(parts[0].trim());
-                int prepTimeMinutes = 15;
-                String name = parts[1].trim();
-                String ingredients = parts[2].trim();
-                double price = Double.parseDouble(parts[3].trim());
+                int prepTimeMinutes = Integer.parseInt(parts[1].trim());
+                String name = parts[2].trim();
+                String ingredients = parts[3].trim();
+                double price = Double.parseDouble(parts[4].trim());
                 pizzas.add(new Pizza(number, prepTimeMinutes, name, ingredients, price));
             }
         } catch (IOException e) {
