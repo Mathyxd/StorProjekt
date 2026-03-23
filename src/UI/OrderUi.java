@@ -37,7 +37,7 @@ public class OrderUi extends BaseUi {
         Pizza pizza = menu.findPizzaByNumber(pizzaNumber);
 
         if (pizza == null) {
-            System.out.println("Pizza findes ikke.");
+            System.out.println(YELLOW + "Pizza findes ikke." + RESET);
             return;
         }
 
@@ -47,17 +47,17 @@ public class OrderUi extends BaseUi {
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
         double total = paymentService.calculateTotal(order);
-        System.out.println("Ordre oprettet: #" + order.getOrderNumber());
+        System.out.println(GREEN + "Ordre oprettet: #" + order.getOrderNumber() + RESET);
         System.out.println("Samlet pris: " + total + " kr");
 
         double amountPaid = readDouble("Betalt beløb: ");
 
         if (paymentService.processPayment(order, amountPaid)) {
             double change = paymentService.calculateChange(order, amountPaid);
-            System.out.println("Betaling godkendt.");
+            System.out.println(GREEN + "Betaling godkendt." + RESET);
             System.out.println("Byttepenge: " + change + " kr");
         } else {
-            System.out.println("Betaling afvist. Kunden har ikke betalt nok.");
+            System.out.println(RED + "Betaling afvist. Kunden har ikke betalt nok." + RESET);
         }
 
         FileHandler.saveCustomer(customer);
@@ -73,7 +73,7 @@ public class OrderUi extends BaseUi {
         var orders = orderManager.getActiveOrdersSorted();
 
         if (orders.isEmpty()) {
-            System.out.println("Ingen aktive ordrer.");
+            System.out.println(YELLOW + "Ingen aktive ordrer." + RESET);
             return;
         }
 
@@ -96,9 +96,9 @@ public class OrderUi extends BaseUi {
         boolean success = orderManager.markOrderAsReady(orderNumber);
 
         if (success) {
-            System.out.println("Ordren er markeret som klar.");
+            System.out.println(GREEN + "Ordren er markeret som klar." + RESET);
         } else {
-            System.out.println("Ordren blev ikke fundet.");
+            System.out.println(YELLOW + "Ordren blev ikke fundet." + RESET);
         }
         pressEnterToContinue();
     }
@@ -107,9 +107,9 @@ public class OrderUi extends BaseUi {
         boolean success = orderManager.markOrderAsComplete(orderNumber);
 
         if(success) {
-            System.out.println("Ordren er market som leveret.");
+            System.out.println(GREEN + "Ordren er market som leveret." + RESET);
         } else {
-            System.out.println("Ordren blev ikke fundet.");
+            System.out.println(YELLOW + "Ordren blev ikke fundet." + RESET);
         }
         pressEnterToContinue();
     }
@@ -118,11 +118,11 @@ public class OrderUi extends BaseUi {
         List<String> orders = FileHandler.loadOrders();
 
         if (orders.isEmpty()) {
-            System.out.println("Ingen ordrer i historikken endnu.");
+            System.out.println(YELLOW + "Ingen ordrer i historikken endnu." + RESET);
             pressEnterToContinue();
             return;
         }
-        System.out.println("\n===OrdreHisotirk===");
+        System.out.println("\n===OrdreHistorik===");
         double totalRevenue = 0;
         for (String order : orders) {
             String[] parts = order.split(",");

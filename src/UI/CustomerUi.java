@@ -32,7 +32,7 @@ public class CustomerUi extends BaseUi {
             case 3:
                 return new EmployeeCustomer(customerName, email);
             default:
-                System.out.println("Ugyldigt valg. Normal kunde vælges automatisk.");
+                System.out.println(YELLOW + "Ugyldigt valg. Normal kunde vælges automatisk." + RESET);
                 return new NormalCustomer(customerName, email);
         }
     }
@@ -43,7 +43,7 @@ public class CustomerUi extends BaseUi {
             if (email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
                 return email;
             }
-            System.out.println("Ugyldig email. Prøv igen.");
+            System.out.println(YELLOW + "Ugyldig email. Prøv igen." + RESET);
         }
     }
 
@@ -51,7 +51,7 @@ public class CustomerUi extends BaseUi {
         List<String> customers = FileHandler.loadCustomer();
 
         if (customers.isEmpty()) {
-            System.out.println("Ingen kunder er blevet registreret endnu. ");
+            System.out.println(YELLOW + "Ingen kunder er blevet registreret endnu. " + RESET);
             pressEnterToContinue();
             return;
         }
@@ -73,7 +73,7 @@ public class CustomerUi extends BaseUi {
                 return value;
             }
 
-            System.out.println("Skriv et gyldigt tal.");
+            System.out.println(YELLOW + "Skriv et gyldigt tal." + RESET);
             scanner.nextLine();
         }
     }

@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 public abstract class BaseUi {
     protected final Scanner scanner;
+    protected static final String GREEN  = "\u001B[32m";
+    protected static final String RED    = "\u001B[31m";
+    protected static final String YELLOW = "\u001B[33m";
+    protected static final String RESET  = "\u001B[0m";
 
     public BaseUi(Scanner scanner) {
         this.scanner = scanner;

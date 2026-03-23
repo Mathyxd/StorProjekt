@@ -48,7 +48,7 @@ public class MenuUi extends BaseUi {
             case 3:
                 return Size.LARGE;
             default:
-                System.out.println("Ugyldigt valg. Medium vælges automatisk.");
+                System.out.println(YELLOW + "Ugyldigt valg. Medium vælges automatisk." + RESET);
                 return Size.MEDIUM;
         }
     }

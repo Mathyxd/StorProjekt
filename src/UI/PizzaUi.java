@@ -40,7 +40,9 @@ public class PizzaUi extends BaseUi {
 
     private void showMainMenu() {
         System.out.println();
-        System.out.println("=== Mario's Pizzabar ===");
+        System.out.println("╔══════════════════════════════╗");
+        System.out.println("║     🍕 Mario's Pizzabar      ║");
+        System.out.println("╚══════════════════════════════╝");
         System.out.println("1. Vis menukort");
         System.out.println("2. Opret ordre");
         System.out.println("3. Vis aktive ordrer");
