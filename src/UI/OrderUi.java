@@ -57,15 +57,16 @@ OrderUi extends BaseUi {
             double change = paymentService.calculateChange(order, amountPaid);
             System.out.println(GREEN + "Betaling godkendt." + RESET);
             System.out.println("Byttepenge: " + change + " kr");
+
+            FileHandler.saveCustomer(customer);
+            FileHandler.saveOrder(order);
+
+            System.out.println("Ordren er færdig kl. " +
+                    order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
+
         } else {
             System.out.println(RED + "Betaling afvist. Kunden har ikke betalt nok." + RESET);
         }
-
-        FileHandler.saveCustomer(customer);
-        FileHandler.saveOrder(order);
-
-        System.out.println("Ordren er færdig kl. " +
-                order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
         pressEnterToContinue();
     }
 
