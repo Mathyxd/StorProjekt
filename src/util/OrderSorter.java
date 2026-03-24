@@ -5,9 +5,9 @@ import java.util.Collections;
 
 
 public class OrderSorter {
-    public static void sortPizza(ArrayList<Order> order) {
+    private static final OrderComparator comparator = new OrderComparator();
 
-        OrderComparator comparator = new OrderComparator();
+    public static void sortPizza(ArrayList<Order> order) {
 
         Collections.sort(order, comparator);
     }

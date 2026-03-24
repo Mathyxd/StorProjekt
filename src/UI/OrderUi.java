@@ -45,11 +45,12 @@ OrderUi extends BaseUi {
         }
 
         Customer customer = customerUi.createCustomer(customerName, email);
-        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(20);
+        LocalDateTime pickupTime = LocalDateTime.now().plusMinutes(pizza.getPrepTimeMinutes());
         Size size = menuUi.readSize();
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
         double total = paymentService.calculateTotal(order);
+        FileHandler.saveCustomer(customer);
         System.out.println(GREEN + "Ordre oprettet: #" + order.getOrderNumber() + RESET);
         System.out.println("Samlet pris: " + String.format("%.2f", total) + " kr");
 
@@ -62,8 +63,6 @@ OrderUi extends BaseUi {
         } else {
             System.out.println(RED + "Betaling afvist. Kunden har ikke betalt nok." + RESET);
         }
-
-        FileHandler.saveCustomer(customer);
 
         System.out.println("Ordren er færdig kl. " +
                 order.getPickupTime().toLocalTime().withSecond(0).withNano(0));
@@ -109,7 +108,6 @@ OrderUi extends BaseUi {
         Order completedOrder = orderManager.completeOrder(orderNumber);
 
         if (completedOrder != null) {
-            FileHandler.saveOrder(completedOrder);
             System.out.println("Ordren er markeret som leveret og gemt i historikken.");
         } else {
             System.out.println("Ordren blev ikke fundet.");

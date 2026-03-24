@@ -1,7 +1,6 @@
 package Service;
 
 import java.util.ArrayList; // Vi bruger ArrayList til at gemme ordrer
-import java.util.Comparator; // Bruges til at sortere ordrer
 import java.util.List;// Interface for lister
 import java.time.LocalDateTime;
 
@@ -39,17 +38,6 @@ public class OrderManager { // Klasse der styrer alle ordrer
         return true;
     }
 
-    // Fjern ordre fra aktiv liste når den er afhentet og betalt
-    public boolean markOrderAsComplete(int orderNumber) {
-        Order order = findActiveOrder(orderNumber);
-        if (order == null) {
-            return false;
-        }
-        order.setStatus(OrderStatus.COMPLETED);
-        activeOrders.remove(order);
-        completedOrders.add(order);
-        return true;
-    }
     public Order completeOrder(int orderNumber) {
         Order order = findActiveOrder(orderNumber);
         if (order == null) {

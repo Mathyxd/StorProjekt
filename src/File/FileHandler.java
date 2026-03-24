@@ -26,7 +26,7 @@ public class FileHandler {
                             order.getTotalPrice()
             );
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+           ExceptionHandler.handle(new ExceptionHandler.FileWriteException("Kunne ikke skrive i Orders.csv" + e.getMessage()));
         }
     }
 
@@ -38,7 +38,7 @@ public class FileHandler {
                 orders.add(line);
             }
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.handle(new ExceptionHandler.FileReadException("Kunne ikke læse Orders.csv" + e.getMessage()));
         }
         return orders;
     }
@@ -57,7 +57,7 @@ public class FileHandler {
                 pizzas.add(new Pizza(number, prepTimeMinutes, name, ingredients, price));
             }
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.handle(new ExceptionHandler.FileReadException("Kunne ikke læse menu.csv" + e.getMessage()));
         }
         return pizzas;
     }
@@ -70,7 +70,7 @@ public class FileHandler {
                             customer.getCustomerType()
             );
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.handle(new ExceptionHandler.FileWriteException("Kunne ikke skrive på customer.csv" + e.getMessage()));
         }
     }
 
@@ -82,7 +82,7 @@ public class FileHandler {
                 customer.add(line);
             }
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.handle(new ExceptionHandler.FileReadException("Kunne ikke læse customer.csv" + e.getMessage()));
         }
         return customer;
     }
