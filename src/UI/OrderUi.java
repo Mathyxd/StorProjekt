@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class
-OrderUi extends BaseUi {
+public class OrderUi extends BaseUi {
 
     private final OrderManager orderManager;
     private final PaymentService paymentService;
@@ -49,8 +48,9 @@ OrderUi extends BaseUi {
         Size size = menuUi.readSize();
 
         Order order = orderManager.createOrder(customer, pizza, size, quantity, pickupTime);
-        double total = paymentService.calculateTotal(order);
+        FileHandler.saveOrder(order);
         FileHandler.saveCustomer(customer);
+        double total = paymentService.calculateTotal(order);
         System.out.println(GREEN + "Ordre oprettet: #" + order.getOrderNumber() + RESET);
         System.out.println("Samlet pris: " + String.format("%.2f", total) + " kr");
 

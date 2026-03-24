@@ -2,7 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 
-public class   Order {
+public class Order {
     private final int orderNumber;
     private final Customer customer;
     private final Pizza pizza;

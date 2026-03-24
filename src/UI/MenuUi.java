@@ -33,6 +33,7 @@ public class MenuUi extends BaseUi {
     }
 
     public Size readSize() {
+        Size[] sizes = Size.values();
         System.out.println("Vælg størrelse:");
         System.out.println("1. Small");
         System.out.println("2. Medium");
