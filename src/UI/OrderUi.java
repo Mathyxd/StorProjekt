@@ -9,6 +9,7 @@ import File.*;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class
@@ -19,6 +20,7 @@ OrderUi extends BaseUi {
     private final Menu menu;
     private final CustomerUi customerUi;
     private final MenuUi menuUi;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM HH:mm");
 
     public OrderUi(Scanner scanner, OrderManager orderManager, PaymentService paymentService, Menu menu, CustomerUi customerUi, MenuUi menuUi) {
         super(scanner);
@@ -85,7 +87,7 @@ OrderUi extends BaseUi {
                             " | Pizza: " + order.getPizza().getName() +
                             " | Antal: " + order.getQuantity() +
                             " | Status: " + order.getStatus() +
-                            " | Klar: " + order.getPickupTime()
+                            " | Klar: " + order.getPickupTime().format(formatter)
             );
         }
         pressEnterToContinue();
